@@ -200,6 +200,7 @@ $$
     我们如何拆开一个状态呢？我们 **复制** 状态 $q$，产生一个状态 $\textit{clone}$，我们将 $\operatorname{len}(\textit{clone})$ 赋值为 $\operatorname{len}(p)+1$。由于我们不想改变遍历到 $q$ 的路径，我们将 $q$ 的所有转移复制到 $\textit{clone}$。我们也将从 $\textit{clone}$ 出发的后缀链接设置为 $q$ 的后缀链接的目标，并设置 $q$ 的后缀链接为 $\textit{clone}$。  
     在拆开状态后，我们将从 $\textit{cur}$ 出发的后缀链接设置为 $\textit{clone}$。  
     最后一步我们将一些到 $q$ 转移重定向到 $\textit{clone}$。我们需要修改哪些转移呢？只重定向相当于所有字符串 $w+c$（其中 $w$ 是 $p$ 的最长字符串）的后缀就够了。即，我们需要继续沿着后缀链接遍历，从结点 $p$ 直到虚拟状态 $-1$ 或者是转移到不是状态 $q$ 的一个转移。
+- 我们还需要证明插入一个新的字符最多只需要拆开一个状态 $q$ 。也就是说只存在一个 $(p,q)$ 且 $\operatorname{len}(q)>\operatorname{len}(p)+1$ 。考虑反证法，假设在插入一个新的字符后，我们找到了 $(p1,q1), (p2,q2)$ 且 $\operatorname{len}(q1)>\operatorname{len}(p1)+1, \operatorname{len}(q2)>\operatorname{len}(p2)+1$ 。同时 $p1, p2$ 都是从 $last$ 沿着 $link$ 往后走经过的点，所以不妨设 $p2$ 是 $p1$ 的后缀。因为 $\operatorname{len}(q2)>\operatorname{len}(p2)+1$ ，所以 $q2$ 对应的字符串去掉末尾字符 $c$ （也就是新加的字符）之后比 $p2$ 对应的字符串要长，同时这个字符串的 $endpos$ 集合也应该包含 $p2$ 对应字符串的 $endpos$ 。这就违背了 $link$ 的定义。
 
 ### 对操作次数为线性的证明
 
